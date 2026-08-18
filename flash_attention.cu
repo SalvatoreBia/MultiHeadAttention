@@ -8,11 +8,11 @@ constexpr int g_maxdk = 128;
 constexpr int g_maxcols = g_maxdk / 16;
 
 __global__ void flash_attention( const float* __restrict__ Q,
-                                                                        const float* __restrict__ K,
-                                                                        const float* __restrict__ V,
-                                                                        float* output,
-                                                                        int N, int d_model, int h,
-                                                                        int dk, float dk_i )
+                                 const float* __restrict__ K,
+                                 const float* __restrict__ V,
+                                 float* output,
+                                 int N, int d_model, int h,
+                                 int dk, float dk_i )
 {
     extern __shared__ float s_buf[];
     float* s_Q = s_buf;
@@ -107,10 +107,10 @@ __global__ void flash_attention( const float* __restrict__ Q,
 
 
 extern "C" void solve( const float* Q,
-                                                const float* K,
-                                                const float* V,
-                                                float* output,
-                                                int N, int d_model, int h )
+                       const float* K,
+                       const float* V,
+                       float* output,
+                       int N, int d_model, int h )
 {
     int dk = d_model / h;
     float dk_i = 1.0f / sqrtf( static_cast<float>( dk ) );
